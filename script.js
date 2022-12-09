@@ -1,5 +1,6 @@
 let computerScore = 0;
 let playerScore = 0;
+let playerChoice = "";
 
 function getComputerChoice() {
   let number = Math.floor(Math.random() * 3);
@@ -12,35 +13,94 @@ function getComputerChoice() {
   }
 }
 
-function getPlayerChoice() {
-  answer = prompt("В строке ввода напечатайте: камень");
-  return answer.toLowerCase();
-}
-
 function playRound() {
-  const playerChoice = getPlayerChoice();
-  const computerChoice = getComputerChoice();
+  let computerChoice = getComputerChoice();
 
   if (playerChoice === computerChoice) {
-    computerScore = computerScore + 0;
-    playerScore = playerScore + 0;
-    alert('Ничья! И у вас, и у компьютера "камень"!');
-  } else if (computerChoice === "бумага") {
+    alert(`Ничья! У вас ${playerChoice} и у компьютера ${computerChoice}`);
+  } else if (playerChoice === "камень" && computerChoice === "бумага") {
     computerScore += 1;
-    alert("Вы проиграли! Бумага побеждает камень!");
-  } else if (computerChoice === "ножницы") {
+    playerScore += 0;
+    alert(
+      `Компьютер выиграл очко! У компьютера ${computerChoice}, а у вас ${playerChoice}`
+    );
+    if (computerScore === 5 || playerScore === 5) {
+      alertScore();
+    }
+  } else if (playerChoice === "камень" && computerChoice === "ножницы") {
+    computerScore += 0;
     playerScore += 1;
-    alert("Вы выиграли! Камень побеждает ножницы!");
+    alert(
+      `Вы выиграли очко! У вас ${playerChoice}, а у компьютера ${computerChoice}`
+    );
+    if (computerScore === 5 || playerScore === 5) {
+      alertScore();
+    }
+  } else if (playerChoice === "ножницы" && computerChoice === "бумага") {
+    computerScore += 0;
+    playerScore += 1;
+    alert(
+      `Вы выиграли очко! У вас ${playerChoice}, а у компьютера ${computerChoice}`
+    );
+    if (computerScore === 5 || playerScore === 5) {
+      alertScore();
+    }
+  } else if (playerChoice === "ножницы" && computerChoice === "камень") {
+    computerScore += 1;
+    playerScore += 0;
+    alert(
+      `Компьютер выиграл очко! У компьютера ${computerChoice}, а у вас ${playerChoice}`
+    );
+    if (computerScore === 5 || playerScore === 5) {
+      alertScore();
+    }
+  } else if (playerChoice === "бумага" && computerChoice === "камень") {
+    computerScore += 0;
+    playerScore += 1;
+    alert(
+      `Вы выиграли очко! У вас ${playerChoice}, а у компьютера ${computerChoice}`
+    );
+    if (computerScore === 5 || playerScore === 5) {
+      alertScore();
+    }
+  } else if (playerChoice === "бумага" && computerChoice === "ножницы") {
+    computerScore += 1;
+    playerScore += 0;
+    alert(
+      `Компьютер выиграл очко! У компьютера ${computerChoice}, а у вас ${playerChoice}`
+    );
+    if (computerScore === 5 || playerScore === 5) {
+      alertScore();
+    }
   }
 }
 
-for (let i = 0; i < 5; i++) {
-  playRound();
-  alert(`У компьютера ${computerScore} очков, а у вас ${playerScore} очков`);
+if (computerScore === 5 || playerScore === 5) {
+  alertScore();
 }
 
-if (computerScore > playerScore) {
-  alert(`Компьютер выиграл! Счет ${computerScore} против ${playerScore} `);
-} else {
-  alert(`Вы выиграли! Счет ${playerScore} против ${computerScore} `);
+function alertScore() {
+  if (computerScore > playerScore) {
+    alert(`Компьютер выиграл! Счет ${computerScore} против ${playerScore} `);
+  } else {
+    alert(`Вы выиграли! Счет ${playerScore} против ${computerScore} `);
+  }
 }
+
+const rockElem = document.querySelector("#rockBut");
+rockElem.addEventListener("click", () => {
+  playerChoice = "камень";
+  playRound();
+});
+
+const paperElem = document.querySelector("#paperBut");
+paperElem.addEventListener("click", () => {
+  playerChoice = "бумага";
+  playRound();
+});
+
+const scissorsElem = document.querySelector("#scissorsBut");
+scissorsElem.addEventListener("click", () => {
+  playerChoice = "ножницы";
+  playRound();
+});
